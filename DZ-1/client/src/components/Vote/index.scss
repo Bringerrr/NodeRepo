@@ -1,0 +1,20 @@
+.Vote {
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  h3 {
+    text-align: center;
+  }
+  .Vote_Container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .Vote_Item {
+      width: 250px;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+    }
+  }
+}

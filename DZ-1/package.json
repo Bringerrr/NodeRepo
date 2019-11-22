@@ -1,0 +1,22 @@
+{
+  "name": "NodeRepos",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "client": "cd client && npm run serve",
+    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "validator": "^12.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.6.0",
+    "nodemon": "^1.18.1"
+  }
+}

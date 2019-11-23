@@ -4,8 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "client": "cd client && npm run serve",
-    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
+    "client": "cd client && npm start",
+    "dev": "concurrently --names \"start,client\" \"npm run start --silent\" \"npm run client --silent\""
   },
   "keywords": [],
   "license": "ISC",

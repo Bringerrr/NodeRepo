@@ -4,6 +4,9 @@ import 'antd/dist/antd.css';
 import { BrowserRouter } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Routes from './containers/Routes';
+import axios from 'axios';
+
+axios.defaults.baseURL = `http://${window.location.hostname}:4000`;
 
 const menuItems = [
   {

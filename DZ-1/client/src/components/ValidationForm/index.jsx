@@ -34,7 +34,7 @@ const ValidationForm = props => {
       console.log('body', body);
       axios({
         method: 'post',
-        url: 'http://localhost:4000/form',
+        url: '/form',
         data: values.username || values.password ? formFields : values
       })
         .then(res => {

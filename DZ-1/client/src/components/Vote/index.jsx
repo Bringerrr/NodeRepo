@@ -13,7 +13,7 @@ const Vote = props => {
     setLoading(true);
     axios({
       method: 'get',
-      url: 'http://localhost:4000/voting/variants'
+      url: '/voting/variants'
     })
       .then(res => {
         console.log('get data vote', res.data);
@@ -31,7 +31,7 @@ const Vote = props => {
     const newData = { ...data, [key]: value };
     axios({
       method: 'put',
-      url: 'http://localhost:4000/voting/vote',
+      url: '/voting/vote',
       data: newData
     })
       .then(res => {

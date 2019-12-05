@@ -1,9 +1,22 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const validate = require('../../helpers/validateForm');
+const validate = require("../../helpers/validateForm");
 
-router.post('/', (req, res) => {
-  return res.json(validate(req.body));
+router.get("/", (req, res) => {
+  res.render("form", {
+    title: "Login",
+    fields: {
+      username: "",
+      password: ""
+    }
+  });
+});
+router.post("/", (req, res) => {
+  res.render("form", {
+    title: "Login",
+    validation: validate(req.body),
+    fields: req.body
+  });
 });
 
 module.exports = router;

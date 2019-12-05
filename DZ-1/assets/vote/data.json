@@ -1,1 +1,1 @@
-{"yes":56,"no":60,"maybe":50}
+[{"id":111,"value":"yes","count":2,"whoVoted":{"John Lock":true,"Humster MIes":true}},{"id":222,"value":"no","count":1,"whoVoted":{"H21s":true}},{"id":333,"value":"maybe","count":1,"whoVoted":{"Ben":true}}]

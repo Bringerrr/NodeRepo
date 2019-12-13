@@ -13,13 +13,9 @@ const menuItems = [
   {
     title: "Tasks",
     submenu: [
-      {
-        title: "DZ-1",
-        submenu: [
-          { title: "validationForm", link: "/form" },
-          { title: "vote", link: "/vote" }
-        ]
-      }
+      { title: "validationForm", link: "/form" },
+      { title: "vote", link: "/vote" },
+      { title: "postman", link: "/postman" }
     ]
   }
 ];

@@ -12,11 +12,13 @@ router.get("/", (req, res) => {
   });
 });
 router.post("/", (req, res) => {
+  res.redirect(301, "/form");
   res.render("form", {
     title: "Login",
     validation: validate(req.body),
     fields: req.body
   });
+  // res.sendStatus(302);
 });
 
 module.exports = router;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactJson from "react-json-view";
 import axios from "axios";
 import {
   Form,
@@ -31,11 +32,17 @@ const transformDataForTable = data =>
     };
   });
 
-const data = transformDataForTable(defaultData);
+const transformDataforRequest = data => {
+  let newData = {};
+  data.forEach(item => {
+    newData[item.key] = item.value;
+  });
 
-console.log("data", data);
+  return newData;
+};
 
 const TabPane = () => {
+  const [data, setData] = useState(transformDataForTable(defaultData));
   const [dropDown, setDropwDown] = useState(requestsTypes[0]);
   const [requestNavigationActive, setRequestNavigationActive] = useState(
     requestNavigation[0]
@@ -54,6 +61,8 @@ const TabPane = () => {
   const [responseParams, setResponseParams] = useState(data);
   const [responseHeaders, setResponseHeaders] = useState(data);
   const [responseBody, setResponseBody] = useState(data);
+  const [responseStatus, setResponseStatus] = useState(null);
+  const [responseTime, setResponseTime] = useState(null);
 
   const mutateData = (data, action) => {
     const lastIndex = data.length - 1;
@@ -94,11 +103,12 @@ const TabPane = () => {
   const onSubmit = e => {
     const body = {
       method: dropDown,
-      body: requestBody,
-      headers: requestBody,
+      body: transformDataforRequest(requestBody),
+      headers: transformDataforRequest(requestHeaders),
       url
     };
     e.preventDefault();
+
     axios({
       method: "post",
       url: "/postman/run",
@@ -106,7 +116,10 @@ const TabPane = () => {
     })
       .then(res => {
         setResponse(res);
-        console.log("response", res);
+        setResponseHeaders(transformDataForTable(res.data.headers));
+        setResponseBody(res.data.data);
+        setResponseStatus(res.data.status);
+        setResponseTime(res.data.time);
       })
       .catch(err => {
         console.log("error catched", err.data);
@@ -160,14 +173,7 @@ const TabPane = () => {
   const renderResponseTable = activeItem => {
     switch (activeItem) {
       case "Body":
-        return (
-          <DataTable
-            action={setResponseBody}
-            handleChange={handleTableChange}
-            data={responseBody}
-            header="header"
-          />
-        );
+        return <ReactJson collapsed={false} src={responseBody} />;
       case "Headers":
         return (
           <DataTable
@@ -202,7 +208,7 @@ const TabPane = () => {
         </DropdownButton>
 
         <Form.Control
-          value={url}
+          value={url || "http://localhost:4000/voting/variants"}
           onChange={e => {
             setUrl(e.target.value);
           }}
@@ -217,7 +223,6 @@ const TabPane = () => {
           </Button>
         </InputGroup.Prepend>
       </InputGroup>
-
       <div className="TabPane_Params">
         <Menu
           onClick={e => handleClick(e, setRequestNavigationActive)}
@@ -231,8 +236,12 @@ const TabPane = () => {
 
         {renderRequestTable(requestNavigationActive)}
       </div>
-
       <div className="TabPane_Response">
+        {responseStatus && (
+          <div>
+            Status : {responseStatus} Time : {responseTime}ms
+          </div>
+        )}
         <Menu
           onClick={e => handleClick(e, setResponseNavigationActive)}
           mode="horizontal"

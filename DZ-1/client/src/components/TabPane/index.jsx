@@ -56,6 +56,8 @@ const TabPane = ({ activeData }) => {
   const [requestBody, setRequestBody] = useState(data);
   const [temporaryHeaders, setTemporaryHeaders] = useState(null);
 
+  console.log('state', { requestParams, requestHeaders, requestBody });
+
   const [responseParams, setResponseParams] = useState(data);
   const [responseHeaders, setResponseHeaders] = useState(data);
   const [responseBody, setResponseBody] = useState(data);
@@ -99,6 +101,14 @@ const TabPane = ({ activeData }) => {
   }, [requestParams]);
 
   useEffect(() => {
+    mutateData(requestBody, setRequestBody);
+  }, [requestBody]);
+
+  useEffect(() => {
+    mutateData(requestHeaders, setRequestHeaders);
+  }, [requestHeaders]);
+
+  useEffect(() => {
     // const [url, setUrl] = useState('');
     // const [requestParams, setRequestParams] = useState(data);
     // const [requestHeaders, setRequestHeaders] = useState(data);
@@ -106,7 +116,6 @@ const TabPane = ({ activeData }) => {
   }, [activeData]);
 
   const onSubmit = e => {
-    console.log('onSubmit', requestBody, requestHeaders);
     const body = {
       method: dropDown,
       body: transformDataforRequest(requestBody),
@@ -137,55 +146,99 @@ const TabPane = ({ activeData }) => {
     action(e.key);
   };
 
-  const handleTableChange = (EO, index, value, action) => {
-    const newState = requestParams;
+  const handleTableChange = (EO, index, value, action, state) => {
+    const newState = state;
     newState.splice(index, 1, { ...newState[index], [value]: EO.target.value });
     action([...newState]);
   };
 
   const renderRequestTable = activeItem => {
-    switch (activeItem) {
-      case 'Params':
-        return (
-          <DataTable
-            action={setRequestParams}
-            handleChange={handleTableChange}
-            data={requestParams}
-            header="Params"
-          />
-        );
-      case 'Headers':
-        return (
-          <>
-            <DataTable
-              action={setRequestHeaders}
-              handleChange={handleTableChange}
-              data={requestHeaders}
-              header="Headers"
-            />
-            {temporaryHeaders && (
-              <DataTable
-                action={setTemporaryHeaders}
-                handleChange={handleTableChange}
-                data={temporaryHeaders}
-                header="Temporary Headers"
-                disableInputs
-              />
-            )}
-          </>
-        );
-      case 'Body':
-        return (
-          <DataTable
-            action={setRequestBody}
-            handleChange={handleTableChange}
-            data={requestBody}
-            header="Body"
-          />
-        );
-      default:
-        return null;
+    if (activeItem === 'Params') {
+      return (
+        <DataTable
+          action={setRequestParams}
+          handleChange={handleTableChange}
+          data={requestParams}
+          header="Params"
+        />
+      );
     }
+
+    if (activeItem === 'Headers') {
+      return (
+        <>
+          <DataTable
+            action={setRequestHeaders}
+            handleChange={handleTableChange}
+            data={requestHeaders}
+            header="Headers"
+          />
+          {temporaryHeaders && (
+            <DataTable
+              action={setTemporaryHeaders}
+              handleChange={handleTableChange}
+              data={temporaryHeaders}
+              header="Temporary Headers"
+              disableInputs
+            />
+          )}
+        </>
+      );
+    }
+
+    if (activeItem === 'Body') {
+      return (
+        <DataTable
+          action={setRequestBody}
+          handleChange={handleTableChange}
+          data={requestBody}
+          header="Body"
+        />
+      );
+    }
+
+    // switch (activeItem) {
+    //   case 'Params':
+    //     return (
+    //       <DataTable
+    //         action={setRequestParams}
+    //         handleChange={handleTableChange}
+    //         data={requestParams}
+    //         header="Params"
+    //       />
+    //     );
+    //   case 'Headers':
+    //     return (
+    //       <>
+    //         <DataTable
+    //           action={setRequestHeaders}
+    //           handleChange={handleTableChange}
+    //           data={requestHeaders}
+    //           header="Headers"
+    //         />
+    //         {temporaryHeaders && (
+    //           <DataTable
+    //             action={setTemporaryHeaders}
+    //             handleChange={handleTableChange}
+    //             data={temporaryHeaders}
+    //             header="Temporary Headers"
+    //             disableInputs
+    //           />
+    //         )}
+    //       </>
+    //     );
+    //   case 'Body':
+    //     return (
+    //       <DataTable
+    //         action={setRequestBody}
+    //         handleChange={handleTableChange}
+    //         data={requestBody}
+    //         header="Body"
+    //       />
+    //     );
+    //   default:
+    //     return null;
+    // }
   };
 
   const renderResponseTable = activeItem => {

@@ -10,7 +10,7 @@ const dataPath = './assets/postman/data.json';
 router.get('/requests', (req, res) => {
   fs.readFile(path.resolve(dataPath), 'utf8', (err, data) => {
     console.log('data', data);
-    if (err) throw err;
+    if (err) return res.status(500).json(err);
     return res.json(JSON.parse(data));
   });
 });

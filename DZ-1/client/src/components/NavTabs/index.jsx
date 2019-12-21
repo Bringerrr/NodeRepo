@@ -1,19 +1,30 @@
-import { Tabs, Button, Icon } from "antd";
-import React, { useState, useEffect } from "react";
-import TabPaneContent from "../TabPane";
+import { Tabs, Button, Icon } from 'antd';
+import React, { useState, useEffect } from 'react';
+import TabPaneContent from '../TabPane';
 
-import "./index.scss";
+import './index.scss';
 
 const { TabPane } = Tabs;
 
-const NavTabs = () => {
+const NavTabs = ({ data }) => {
+  console.log('navTabs', data);
   const defPanes = [
-    { title: "Tab 1", content: <TabPaneContent />, key: "1" },
-    { title: "Tab 2", content: <TabPaneContent />, key: "2" }
+    { title: 'Tab 1', content: <TabPaneContent activeData={data} />, key: '0' },
+    { title: 'Tab 2', content: <TabPaneContent />, key: '1' }
   ];
 
   const [panes, setPanes] = useState(defPanes);
   const [activeKey, setActiveKey] = useState(panes[0].key);
+
+  useEffect(() => {
+    const newPanes = panes;
+    newPanes[activeKey].content = <TabPaneContent activeData={data} />;
+
+    console.log('data changed tabPanes', data);
+    console.log('newPanes', newPanes);
+
+    setPanes([...newPanes]);
+  }, [data]);
 
   const onChange = activeKey => {
     setActiveKey(activeKey);
@@ -21,7 +32,7 @@ const NavTabs = () => {
 
   const add = () => {
     const activeKey = `newTab${panes.length}`;
-    panes.push({ title: "New Tab", content: "New Tab Pane", key: activeKey });
+    panes.push({ title: 'New Tab', content: 'New Tab Pane', key: activeKey });
     setPanes(panes);
     setActiveKey(activeKey);
   };
@@ -47,7 +58,7 @@ const NavTabs = () => {
   };
 
   const onEdit = (targetKey, action) => {
-    if (action === "remove") {
+    if (action === 'remove') {
       remove(targetKey);
     }
   };
@@ -65,7 +76,7 @@ const NavTabs = () => {
         onEdit={onEdit}
       >
         {panes.map(pane => (
-          <TabPane tab={pane.title} key={pane.key}>
+          <TabPane data={data} tab={pane.title} key={pane.key}>
             {pane.content}
           </TabPane>
         ))}

@@ -1,32 +1,34 @@
-import React, { useState } from "react";
-import { Table, Input } from "antd";
+import React, { useState } from 'react';
+import { Table, Input } from 'antd';
 
-const DataTable = ({ header, data, handleChange, action }) => {
+const DataTable = ({ header, data, handleChange, action, disableInputs }) => {
   const columns = [
     {
-      title: "Key",
-      dataIndex: "hashKey",
+      title: 'Key',
+      dataIndex: 'hashKey',
       render: (...props) => {
         const value = props[0];
         const index = props[props.length - 1];
         return (
           <Input
-            onChange={EO => handleChange(EO, index, "hashKey", action)}
-            value={data[index]["hashKey"]}
+            onChange={EO => handleChange(EO, index, 'hashKey', action)}
+            value={data[index]['hashKey']}
+            disabled={disableInputs || false}
           />
         );
       }
     },
     {
-      title: "Value",
-      dataIndex: "value",
+      title: 'Value',
+      dataIndex: 'value',
       render: (...props) => {
         const value = props[0];
         const index = props[props.length - 1];
         return (
           <Input
-            onChange={EO => handleChange(EO, index, "value", action)}
-            value={data[index]["value"]}
+            onChange={EO => handleChange(EO, index, 'value', action)}
+            value={data[index]['value']}
+            disabled={disableInputs || false}
           />
         );
       }

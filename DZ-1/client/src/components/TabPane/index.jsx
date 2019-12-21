@@ -1,27 +1,25 @@
-import React, { useState, useEffect } from "react";
-import ReactJson from "react-json-view";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import ReactJson from 'react-json-view';
+import axios from 'axios';
 import {
   Form,
   Button,
   Dropdown,
   InputGroup,
   DropdownButton
-} from "react-bootstrap";
-import { Menu } from "antd";
+} from 'react-bootstrap';
+import { Menu } from 'antd';
 
-import DataTable from "../DataTable";
+import DataTable from '../DataTable';
 
-import "./index.scss";
+import './index.scss';
 
-const requestNavigation = ["Params", "Headers", "Body"];
-const responseNavigation = ["Body", "Headers"];
-const requestsTypes = ["get", "post", "put", "delete", "patch"];
+const requestNavigation = ['Params', 'Headers', 'Body'];
+const responseNavigation = ['Body', 'Headers'];
+const requestsTypes = ['get', 'post', 'put', 'delete', 'patch'];
 
 const defaultData = {
-  1: "John Brown",
-  2: "Jim Green",
-  3: "Joe Black"
+  '': ''
 };
 
 const transformDataForTable = data =>
@@ -35,13 +33,12 @@ const transformDataForTable = data =>
 const transformDataforRequest = data => {
   let newData = {};
   data.forEach(item => {
-    newData[item.key] = item.value;
+    if (item.hashKey !== '') newData[item.hashKey] = item.value;
   });
-
   return newData;
 };
 
-const TabPane = () => {
+const TabPane = ({ activeData }) => {
   const [data, setData] = useState(transformDataForTable(defaultData));
   const [dropDown, setDropwDown] = useState(requestsTypes[0]);
   const [requestNavigationActive, setRequestNavigationActive] = useState(
@@ -50,13 +47,14 @@ const TabPane = () => {
   const [responseNavigationActive, setResponseNavigationActive] = useState(
     responseNavigation[0]
   );
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState('http://localhost:4000/voting/variants');
   const [showResponse, setShowResponse] = useState(false);
   const [response, setResponse] = useState(null);
 
   const [requestParams, setRequestParams] = useState(data);
   const [requestHeaders, setRequestHeaders] = useState(data);
   const [requestBody, setRequestBody] = useState(data);
+  const [temporaryHeaders, setTemporaryHeaders] = useState(null);
 
   const [responseParams, setResponseParams] = useState(data);
   const [responseHeaders, setResponseHeaders] = useState(data);
@@ -66,11 +64,11 @@ const TabPane = () => {
 
   const mutateData = (data, action) => {
     const lastIndex = data.length - 1;
-    if (Object.entries(data[lastIndex]).some(([key, value]) => value !== "")) {
+    if (Object.entries(data[lastIndex]).some(([key, value]) => value !== '')) {
       const newData = data;
       const newRow = {};
 
-      Object.keys(newData[lastIndex]).forEach(key => (newRow[key] = ""));
+      Object.keys(newData[lastIndex]).forEach(key => (newRow[key] = ''));
       newData.push(newRow);
       action([...newData]);
     } else if (
@@ -78,7 +76,7 @@ const TabPane = () => {
         .slice(0, lastIndex)
         .findIndex(([key, value]) => {
           return Object.entries(value).every(([key, inputValue]) => {
-            return inputValue === "";
+            return inputValue === '';
           });
         }) > -1
     ) {
@@ -87,7 +85,7 @@ const TabPane = () => {
         .slice(0, lastIndex)
         .findIndex(([key, value]) => {
           return Object.entries(value).every(([key, inputValue]) => {
-            return inputValue === "";
+            return inputValue === '';
           });
         });
 
@@ -100,7 +98,15 @@ const TabPane = () => {
     mutateData(requestParams, setRequestParams);
   }, [requestParams]);
 
+  useEffect(() => {
+    // const [url, setUrl] = useState('');
+    // const [requestParams, setRequestParams] = useState(data);
+    // const [requestHeaders, setRequestHeaders] = useState(data);
+    // const [requestBody, setRequestBody] = useState(data);
+  }, [activeData]);
+
   const onSubmit = e => {
+    console.log('onSubmit', requestBody, requestHeaders);
     const body = {
       method: dropDown,
       body: transformDataforRequest(requestBody),
@@ -110,19 +116,20 @@ const TabPane = () => {
     e.preventDefault();
 
     axios({
-      method: "post",
-      url: "/postman/run",
+      method: 'post',
+      url: '/postman/run',
       data: body
     })
       .then(res => {
         setResponse(res);
         setResponseHeaders(transformDataForTable(res.data.headers));
+        setTemporaryHeaders(transformDataForTable(res.data.temporaryHeaders));
         setResponseBody(res.data.data);
         setResponseStatus(res.data.status);
         setResponseTime(res.data.time);
       })
       .catch(err => {
-        console.log("error catched", err.data);
+        console.log('error catched', err.data);
       });
   };
 
@@ -138,7 +145,7 @@ const TabPane = () => {
 
   const renderRequestTable = activeItem => {
     switch (activeItem) {
-      case "Params":
+      case 'Params':
         return (
           <DataTable
             action={setRequestParams}
@@ -147,16 +154,27 @@ const TabPane = () => {
             header="Params"
           />
         );
-      case "Headers":
+      case 'Headers':
         return (
-          <DataTable
-            action={setRequestHeaders}
-            handleChange={handleTableChange}
-            data={requestHeaders}
-            header="Headers"
-          />
+          <>
+            <DataTable
+              action={setRequestHeaders}
+              handleChange={handleTableChange}
+              data={requestHeaders}
+              header="Headers"
+            />
+            {temporaryHeaders && (
+              <DataTable
+                action={setTemporaryHeaders}
+                handleChange={handleTableChange}
+                data={temporaryHeaders}
+                header="Temporary Headers"
+                disableInputs
+              />
+            )}
+          </>
         );
-      case "Body":
+      case 'Body':
         return (
           <DataTable
             action={setRequestBody}
@@ -172,15 +190,16 @@ const TabPane = () => {
 
   const renderResponseTable = activeItem => {
     switch (activeItem) {
-      case "Body":
+      case 'Body':
         return <ReactJson collapsed={false} src={responseBody} />;
-      case "Headers":
+      case 'Headers':
         return (
           <DataTable
             action={setResponseHeaders}
             handleChange={handleTableChange}
             data={responseHeaders}
-            header="header"
+            header="Header"
+            disableInputs
           />
         );
       default:
@@ -208,7 +227,7 @@ const TabPane = () => {
         </DropdownButton>
 
         <Form.Control
-          value={url || "http://localhost:4000/voting/variants"}
+          value={url}
           onChange={e => {
             setUrl(e.target.value);
           }}

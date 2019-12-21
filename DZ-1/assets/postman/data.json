@@ -1,0 +1,106 @@
+{
+  "Dec 20, 2019": [
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    },
+    {
+      "body": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "headers": { "1": "John Brown", "2": "Jim Green", "3": "Joe Black" },
+      "url": "http://localhost:4000/voting/variants",
+      "method": "get"
+    }
+  ]
+}

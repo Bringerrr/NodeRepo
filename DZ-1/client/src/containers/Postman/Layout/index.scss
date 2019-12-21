@@ -1,0 +1,15 @@
+.LayoutComponent {
+  width: 100%;
+  display: flex;
+  .Layout_Content,
+  .Layout_Sidebar {
+    overflow-y: auto;
+    height: calc(100vh - 48px);
+  }
+
+  .Layout_Sidebar {
+    .ant-menu-root {
+      padding-bottom: 56px;
+    }
+  }
+}

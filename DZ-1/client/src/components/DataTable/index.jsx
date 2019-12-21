@@ -11,7 +11,7 @@ const DataTable = ({ header, data, handleChange, action, disableInputs }) => {
         const index = props[props.length - 1];
         return (
           <Input
-            onChange={EO => handleChange(EO, index, 'hashKey', action)}
+            onChange={EO => handleChange(EO, index, 'hashKey', action, data)}
             value={data[index]['hashKey']}
             disabled={disableInputs || false}
           />
@@ -26,7 +26,7 @@ const DataTable = ({ header, data, handleChange, action, disableInputs }) => {
         const index = props[props.length - 1];
         return (
           <Input
-            onChange={EO => handleChange(EO, index, 'value', action)}
+            onChange={EO => handleChange(EO, index, 'value', action, data)}
             value={data[index]['value']}
             disabled={disableInputs || false}
           />

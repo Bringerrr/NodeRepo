@@ -1,0 +1,18 @@
+{
+  "name": "node-repos",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start-form": "cd form && npm start",
+    "start-postman": "cd postman && npm start",
+    "start-voting": "cd voting && npm start",
+    "client": "cd client && npm start",
+    "dev": "concurrently --names \"start,client\" \"npm run start --silent\" \"npm run client --silent\"",
+    "start-all": "concurrently --names \"form,postman,voting,client\" \"npm run start-form --silent\" \"npm run start-postman --silent\" \"npm run start-voting --silent\" \"npm run client --silent\""
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^3.6.0"
+  }
+}

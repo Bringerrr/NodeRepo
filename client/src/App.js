@@ -1,19 +1,20 @@
-import React from 'react';
-import './App.scss';
-import 'antd/dist/antd.css';
-import { BrowserRouter } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import Routes from './containers/Routes';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import "./App.scss";
+import "antd/dist/antd.css";
+import { BrowserRouter } from "react-router-dom";
+import Navigation from "./components/Navigation";
+import Routes from "./containers/Routes";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const menuItems = [
   {
-    title: 'Tasks',
+    title: "Tasks",
     submenu: [
-      { title: 'validationForm', link: '/form' },
-      { title: 'vote', link: '/vote' },
-      { title: 'postman', link: '/postman' },
-      { title: 'uploadFile', link: '/upload-file' }
+      { title: "validationForm", link: "/form" },
+      { title: "vote", link: "/vote" },
+      { title: "postman", link: "/postman" },
+      { title: "uploadFile", link: "/upload-file" },
+      { title: "sql", link: "/sql" }
     ]
   }
 ];

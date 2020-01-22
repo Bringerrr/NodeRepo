@@ -4,6 +4,8 @@ const zlib = require("zlib");
 
 const gzip = zlib.createGzip();
 
+var dataBasePath = path.resolve("./dump_sammy_1579179573165.sql");
+
 const getAllFiles = function(dirPath, fileStore) {
   files = fs.readdirSync(dirPath);
   console.log("dirPath", dirPath);
@@ -81,14 +83,15 @@ const credentials = {
   db_name: "sammy"
 };
 
-// const dump_command = `pg_dump postgresql://${credentials.user}:${
-//   credentials.pass
-// }@${credentials.host}:${credentials.port}/${credentials.db_name} > dump_${
-//   credentials.db_name
-// }_${Date.now()}.sql`;
+// const dump_command = `pg_dump --file "dump_sammy_newDump.sql" --host "46.101.143.191" --port "5432" --username "sammy" --verbose --format=t --blobs "sammy"`;
 // const dump_result = child_process.execSync(dump_command);
 // console.log(dump_result.toString());
 
-const restore_command = `pg_restore postgresql://${credentials.user}:${credentials.pass}@${credentials.host}:${credentials.port}/${credentials.db_name} --dbname=sammy < dump_${credentials.db_name}_1579179573165.sql`;
+// const restore_command = `pg_restore postgresql://${credentials.user}:${credentials.pass}@${credentials.host}:${credentials.port} -f dump_${credentials.db_name}_1579179573165.sql`;
+// const restore_command = `pg_restore -c -U ${credentials.user} -d ${credentials.db_name} -v "./dump_${credentials.db_name}_1579694514966.dump" -W`;
+// const restore_command = `PGPASSWORD=${credentials.pass} psql --clean -U ${credentials.user} -p ${credentials.port} -h ${credentials.host} -d ${credentials.db_name} < ./dump_sammy_1579179573165.sql`;
+// const restore_command = `pg_restore -h ${credentials.host} -p ${credentials.port} -d ${credentials.db_name} -U ${credentials.user} dump_sammy_1579179573165.sql`;
+
+const restore_command = `pg_restore --host "46.101.143.191" --port "5432" --username "sammy" --password --dbname "sammy" --clean --verbose "/home/codex/Downloads/NodeRepo/sql/dump_sammy_newDump.sql"`;
 const restore_result = child_process.execSync(restore_command);
-console.log(restore_result.toString());
+console.log(restore_command);

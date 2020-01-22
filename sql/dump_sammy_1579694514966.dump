@@ -1,0 +1,147 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 12.1 (Ubuntu 12.1-1.pgdg18.04+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+--
+-- Name: account; Type: TABLE; Schema: public; Owner: sammy
+--
+
+CREATE TABLE public.account (
+    user_id integer NOT NULL,
+    username character varying(50) NOT NULL,
+    password character varying(50) NOT NULL,
+    email character varying(355) NOT NULL
+);
+
+
+ALTER TABLE public.account OWNER TO sammy;
+
+--
+-- Name: account_user_id_seq; Type: SEQUENCE; Schema: public; Owner: sammy
+--
+
+CREATE SEQUENCE public.account_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.account_user_id_seq OWNER TO sammy;
+
+--
+-- Name: account_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: sammy
+--
+
+ALTER SEQUENCE public.account_user_id_seq OWNED BY public.account.user_id;
+
+
+--
+-- Name: films; Type: TABLE; Schema: public; Owner: sammy
+--
+
+CREATE TABLE public.films (
+    code character(5) NOT NULL,
+    title character varying(40) NOT NULL,
+    did integer NOT NULL,
+    date_prod date,
+    kind character varying(10),
+    len interval hour to minute
+);
+
+
+ALTER TABLE public.films OWNER TO sammy;
+
+--
+-- Name: account user_id; Type: DEFAULT; Schema: public; Owner: sammy
+--
+
+ALTER TABLE ONLY public.account ALTER COLUMN user_id SET DEFAULT nextval('public.account_user_id_seq'::regclass);
+
+
+--
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: sammy
+--
+
+COPY public.account (user_id, username, password, email) FROM stdin;
+1	User	1234	user@hhos.com
+5	User2	1234	user@dhhos.com
+9	User21	12344	user@dhhosf.com
+16	User98	12344	user22@dhhosf.com
+17	User99	12344	uswer22@dhhosf.com
+18	User29	12344	user29@dhhosf.com
+20	User49	12344	user49@dhhosf.com
+21	User59	12344	user9@dhhosf.com
+29	User51	12344	user9@dhhosfа.com
+\.
+
+
+--
+-- Data for Name: films; Type: TABLE DATA; Schema: public; Owner: sammy
+--
+
+COPY public.films (code, title, did, date_prod, kind, len) FROM stdin;
+\.
+
+
+--
+-- Name: account_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: sammy
+--
+
+SELECT pg_catalog.setval('public.account_user_id_seq', 21, true);
+
+
+--
+-- Name: account account_email_key; Type: CONSTRAINT; Schema: public; Owner: sammy
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT account_email_key UNIQUE (email);
+
+
+--
+-- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: sammy
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT account_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: account account_username_key; Type: CONSTRAINT; Schema: public; Owner: sammy
+--
+
+ALTER TABLE ONLY public.account
+    ADD CONSTRAINT account_username_key UNIQUE (username);
+
+
+--
+-- Name: films firstkey; Type: CONSTRAINT; Schema: public; Owner: sammy
+--
+
+ALTER TABLE ONLY public.films
+    ADD CONSTRAINT firstkey PRIMARY KEY (code);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -42,56 +42,73 @@ const getAllFiles = function(dirPath, fileStore) {
 };
 
 const unzipFiles = dirPath => {
-  zlib.Gunzip(raw_data, function(error, result) {
-    if (error) throw error;
-    // Access data here through result as a Buffer
-  });
+  // zlib.Gunzip(raw_data, function(error, result) {
+  //   if (error) throw error;
+  //   // Access data here through result as a Buffer
+  // });
 
-  // directoryFiles = fs.readdirSync(dirPath);
+  directoryFiles = fs.readdirSync(dirPath);
   // console.log("directoryFiles", directoryFiles);
+  var gzip = zlib.createGzip();
+  var r = fs.createReadStream(directoryFiles[0]);
+  var w = fs.createWriteStream("./mygzipfile.gz");
+  r.pipe(gzip)
+    .pipe(w)
+    .on("finish", err => {
+      if (err) return reject(err);
+      else {
+        console.log("successfully finished");
+      }
+    });
+
+  var r1 = fs.createReadStream(directoryFiles[1]);
+  var w1 = fs.createWriteStream("./mygzipfile.gz");
+  r1.pipe(gzip)
+    .pipe(w)
+    .on("finish", err => {
+      if (err) return reject(err);
+      else {
+        console.log("successfully finished 1");
+      }
+    });
   // Promise.all(
   //   directoryFiles.map(filename => {
+  //     if (filename === "node_modules") return null;
   //     return new Promise((resolve, reject) => {
-  //       const fileContents = fs.createReadStream(`./${filename}`);
-  //       const writeStream = fs.createWriteStream(
-  //         `./data/new-${filename.slice(0, -3)}`
-  //       );
+  //       console.log("filename", filename);
+  //       const readStream = fs.createReadStream(`./${filename}`);
+  //       const writeStream = fs.createWriteStream(`./demo.gz`);
   //       const unzip = zlib.createGunzip();
-  //       fileContents
+  //       readStream
   //         .pipe(unzip)
   //         .pipe(writeStream)
-  //         .on("finish", err => {
-  //           if (err) return reject(err);
-  //           else resolve();
-  //         });
+  // .on("finish", err => {
+  //   if (err) return reject(err);
+  //   else resolve();
+  // });
   //     });
   //   })
-  // ).then(console.log("done"));
+  // )
+  //   .then(console.log("done"))
+  //   .catch(e => console.log("error", e));
 };
 
 // Usage
 // console.log(getAllFiles("./"));
 
-// unzipFiles("./");
+unzipFiles("./");
 
-const child_process = require("child_process");
-const credentials = {
-  host: "46.101.143.191",
-  user: "sammy",
-  pass: "8588057e",
-  port: 5432,
-  db_name: "sammy"
-};
+// const child_process = require("child_process");
+// const credentials = {
+//   host: "46.101.143.191",
+//   user: "sammy",
+//   pass: "8588057e",
+//   port: 5432,
+//   db_name: "sammy"
+// };
 
-// const dump_command = `pg_dump --file "dump_sammy_newDump.sql" --host "46.101.143.191" --port "5432" --username "sammy" --verbose --format=t --blobs "sammy"`;
+// const dump_command = `pg_dump --file "dump_sammy_newDump.sql" --host "${credentials.host}" --port "${credentials.port}" --username "${credentials.user}" --verbose --format=t --blobs "${credentials.db_name}"`;
 // const dump_result = child_process.execSync(dump_command);
-// console.log(dump_result.toString());
 
-// const restore_command = `pg_restore postgresql://${credentials.user}:${credentials.pass}@${credentials.host}:${credentials.port} -f dump_${credentials.db_name}_1579179573165.sql`;
-// const restore_command = `pg_restore -c -U ${credentials.user} -d ${credentials.db_name} -v "./dump_${credentials.db_name}_1579694514966.dump" -W`;
-// const restore_command = `PGPASSWORD=${credentials.pass} psql --clean -U ${credentials.user} -p ${credentials.port} -h ${credentials.host} -d ${credentials.db_name} < ./dump_sammy_1579179573165.sql`;
-// const restore_command = `pg_restore -h ${credentials.host} -p ${credentials.port} -d ${credentials.db_name} -U ${credentials.user} dump_sammy_1579179573165.sql`;
-
-const restore_command = `pg_restore --host "46.101.143.191" --port "5432" --username "sammy" --password --dbname "sammy" --clean --verbose "/home/codex/Downloads/NodeRepo/sql/dump_sammy_newDump.sql"`;
-const restore_result = child_process.execSync(restore_command);
-console.log(restore_command);
+// const restore_command = `pg_restore --host "${credentials.host}" --port "${credentials.port}" --username "${credentials.user}" --password --dbname "${credentials.db_name}" --clean --verbose "/home/codex/Downloads/NodeRepo/sql/dump_sammy_newDump.sql"`;
+// const restore_result = child_process.execSync(restore_command);
